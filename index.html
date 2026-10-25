@@ -39,6 +39,10 @@
 
   /* hero */
   .hero { padding-block: clamp(56px, 11vw, 132px) clamp(40px, 7vw, 80px); border-bottom: 1px solid var(--line); }
+  .hero-top { display: grid; grid-template-columns: minmax(0, 1fr) clamp(180px, 22vw, 280px); gap: clamp(24px, 5vw, 64px); align-items: end; }
+  .portrait { margin: 0; aspect-ratio: 4/5; border: 1px solid var(--line); overflow: hidden; background: var(--soft); }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .hero-top { grid-template-columns: 1fr; } .portrait { width: 56%; max-width: 240px; order: -1; } }
   .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   h1 { font: 400 clamp(56px, 11vw, 148px)/.92 var(--serif); letter-spacing: -.02em; margin: 18px 0 0; }
   h1 .cn { font-family: var(--sans); font-weight: 400; font-size: .2em; letter-spacing: .1em; color: var(--muted); vertical-align: .9em; margin-left: .3em; }
@@ -130,11 +134,12 @@
   .venture li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; }
   .venture li b { font-weight: 600; }
   .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-self: start; }
-  .pair .frame { aspect-ratio: 4/5; }
+  .pair .frame { aspect-ratio: 4/3; }
+  .pair figure.lead { grid-column: 1 / -1; } .pair figure.lead .frame { aspect-ratio: 16/9; }
   @media (max-width: 820px) { .venture { grid-template-columns: 1fr; } }
 
   /* robots */
-  .robots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+  .robots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
   .robots .frame { aspect-ratio: 4/5; }
   .robots figure.wide { grid-column: span 2; } .robots figure.wide .frame { aspect-ratio: auto; height: calc(100% - 0px); }
   @media (max-width: 900px) { .robots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -177,9 +182,14 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="eyebrow">Robotics founder · Beijing · b. 2003</div>
-    <h1>Jorlin Yang<span class="cn">杨卓霖</span></h1>
-    <p class="lede">I build robots — and now, the way humans <em>teach</em> them. Founder of C Robotics, the human-in-the-loop layer for embodied AI.</p>
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">Robotics founder · Beijing · b. 2003</div>
+        <h1>Jorlin Yang<span class="cn">杨卓霖</span></h1>
+        <p class="lede">I build robots — and now, the way humans <em>teach</em> them. Founder of C Robotics, the human-in-the-loop layer for embodied AI.</p>
+      </div>
+      <figure class="portrait"><img src="assets/portrait.jpg" alt="Portrait of Jorlin Yang"></figure>
+    </div>
     <div class="stats">
       <div class="stat"><b>20+</b><span>robots built by hand as an undergrad — flying, rolling, climbing walls, playing badminton</span></div>
       <div class="stat"><b>200 ms</b><span>remote force-feedback teleop that stays stable at Beijing-to-D.C. latency</span></div>
@@ -216,9 +226,9 @@
         </ul>
         <p class="d">Same controller, three robots. Pick a body:</p>
         <ul class="bodies" role="tablist" aria-label="Robot platform">
-          <li><button role="tab" aria-selected="true" data-body="reflex"><i>01</i><span><b>Reflex Robotics</b><small>Packing parcels off a conveyor</small></span></button></li>
-          <li><button role="tab" aria-selected="false" data-body="ultra"><i>02</i><span><b>Ultra</b><small>Bimanual bin picking with a whole-body controller</small></span></button></li>
-          <li><button role="tab" aria-selected="false" data-body="luna"><i>03</i><span><b>Luna</b><small>Turn around, reach behind — body follows the head</small></span></button></li>
+          <li><button role="tab" aria-selected="true" data-body="reflex"><i>01</i><span><b>Reflex Robotics</b><small>Wheeled humanoid · driven by an Ultra recording</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-body="ultra"><i>02</i><span><b>Ultra</b><small>Picks off a conveyor and packs a carton</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-body="luna"><i>03</i><span><b>Luna</b><small>Base, torso and arms move as one</small></span></button></li>
         </ul>
         <ul class="spec">
           <li><span>Result</span><div>Human-to-robot time ratio on parcel packing: <b>1:10 → 1:5</b></div></li>
@@ -226,8 +236,8 @@
         </ul>
       </div>
       <figure>
-        <div class="frame wide"><video id="bodyVideo" src="assets/body-reflex.mp4" poster="assets/body-reflex.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 01</span><span id="bodyCap"><b>Reflex Robotics.</b> <span class="d">Same operator interface, same intuition — a different robot.</span></span></figcaption>
+        <div class="frame wide" style="background:#2b2d30"><video id="bodyVideo" style="object-fit:contain" src="assets/body-reflex.mp4" poster="assets/body-reflex.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 01</span><span id="bodyCap"><b>Reflex Robotics.</b> <span class="d">A human teleop session recorded on Ultra, replayed on Reflex in simulation: base, lift, torso and both arms move together, then the whole robot turns ~100° to the bin.</span></span></figcaption>
       </figure>
     </div>
 
@@ -322,10 +332,12 @@
         </ul>
       </div>
       <div class="pair">
-        <figure><div class="frame"><img src="assets/wallclimb.jpg" alt="Wall-climbing robot on a vertical wall" loading="lazy"></div>
-          <figcaption><span class="fig">FIG. 06</span><span>The wall-climbing robot kids finish in two days.</span></figcaption></figure>
-        <figure><div class="frame"><img src="assets/deskpet.jpg" alt="Desktop pet robot with a screen face" loading="lazy" style="object-fit:contain;background:#000"></div>
-          <figcaption><span class="fig">FIG. 07</span><span>Desktop AI pet robot, the next kit.</span></figcaption></figure>
+        <figure class="lead"><div class="frame"><img src="assets/kits-shipping.jpg" alt="A conference table covered in open boxes of robot kits being packed for shipping" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 06</span><span>Packing kits for shipment to partner institutions.</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/camp-kits.jpg" alt="A classroom of kids holding up their robot kits" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 07</span><span>Day one: every kid gets a kit.</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/camp-group.jpg" alt="Summer camp group photo on a university campus" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 08</span><span>Summer camp on the USTB campus.</span></figcaption></figure>
       </div>
     </div>
 
@@ -340,10 +352,10 @@
         </ul>
       </div>
       <div class="pair">
+        <figure><div class="frame"><img src="assets/k12-classroom.jpg" alt="Classroom desks lined with student-built robots and gamepads" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 09</span><span>A class’s worth of robots, all built by students.</span></figcaption></figure>
         <figure><div class="frame"><img src="assets/tankkit.jpg" alt="Aluminium tracked tank kit" loading="lazy"></div>
-          <figcaption><span class="fig">FIG. 08</span><span>“Build a tank in five days” kit.</span></figcaption></figure>
-        <figure><div class="frame"><img src="assets/kitarm.jpg" alt="Yellow tracked robot with lifting arm built by students" loading="lazy"></div>
-          <figcaption><span class="fig">FIG. 09</span><span>Tracked lifting-arm robot, built by students.</span></figcaption></figure>
+          <figcaption><span class="fig">FIG. 10</span><span>“Build a tank in five days” kit.</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -354,25 +366,21 @@
     <div class="head">
       <div class="num">03 — Built</div>
       <h2>Robots I've made
-        <small>Eight of 20+ machines I designed and built by hand — from competition robots to the haptic hardware inside the C Robotics cockpit. RoboMaster University Technical Challenge, National First Prize (Top 8 of 400+ teams), as embedded &amp; controls lead.</small></h2>
+        <small>Six of 20+ machines I designed and built by hand, from award-winning student robots to the RoboMaster rig where my teleop work began. RoboMaster University Technical Challenge, National First Prize (Top 8 of 400+ teams), as embedded &amp; controls lead.</small></h2>
     </div>
     <div class="robots">
-      <figure><div class="frame"><video src="assets/bot-pipe.mp4" poster="assets/bot-pipe.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 10</span><span><b>Pipe inspection robot.</b> <span class="d">Segmented and steerable; adapts to the pipe diameter and carries a flaw-detection payload. Beijing First Prize, Youth Science &amp; Technology Innovation Competition.</span></span></figcaption></figure>
-      <figure><div class="frame"><video src="assets/bot-wallclimb.mp4" poster="assets/bot-wallclimb.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 11</span><span><b>Wall-climbing robot.</b> <span class="d">Vacuum adhesion through a PTFE-sealed soft chamber on hand-cast silicone tires. Siemens Cup, Beijing First Prize — and 70+ units sold.</span></span></figcaption></figure>
-      <figure><div class="frame"><video src="assets/bot-rm-scara.mp4" poster="assets/bot-rm-scara.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 12</span><span><b>RoboMaster Engineer.</b> <span class="d">7-DoF cylindrical SCARA arm on a suspended swerve chassis: crosses rough terrain and stows ore precisely. National First Prize.</span></span></figcaption></figure>
-      <figure><div class="frame"><img src="assets/bot-tactile.jpg" alt="Fingertip tactile device" loading="lazy"></div>
-        <figcaption><span class="fig">FIG. 13</span><span><b>Fingertip tactile device.</b> <span class="d">Three micro-motor cable reels drive a parallel Delta linkage under the fingertip, with a voice-coil vibrator on top. Now part of the C Robotics cockpit.</span></span></figcaption></figure>
-      <figure><div class="frame"><img src="assets/bot-master-arm.jpg" alt="6-DoF force-feedback master arm" loading="lazy"></div>
-        <figcaption><span class="fig">FIG. 14</span><span><b>6-DoF force-feedback master arm.</b> <span class="d">Quasi-direct-drive base with high-ratio belts, parallel-linkage shoulder and elbow, and a 3-axis orthogonal spherical wrist. Built for the cockpit.</span></span></figcaption></figure>
       <figure><div class="frame"><video src="assets/bot-anti-fall-bed.mp4" poster="assets/bot-anti-fall-bed.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 15</span><span><b>Fall-prevention bed for the elderly.</b> <span class="d">Senses when a sleeper drifts to the edge and deploys a guard in time. Beijing First Prize.</span></span></figcaption></figure>
+        <figcaption><span class="fig">FIG. 11</span><span><b>Fall-prevention bed for the elderly.</b> <span class="d">Senses when a sleeper drifts to the edge and deploys a guard in time. Beijing First Prize.</span></span></figcaption></figure>
       <figure><div class="frame"><video src="assets/bot-badminton.mp4" poster="assets/bot-badminton.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 16</span><span><b>Badminton robot.</b> <span class="d">Picks shuttlecocks off the floor, stacks them in a vertical magazine and serves them with friction wheels.</span></span></figcaption></figure>
+        <figcaption><span class="fig">FIG. 12</span><span><b>Badminton robot.</b> <span class="d">Picks shuttlecocks off the floor, stacks them in a vertical magazine and serves them with friction wheels.</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-pipe.mp4" poster="assets/bot-pipe.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 13</span><span><b>Pipe inspection robot.</b> <span class="d">Segmented and steerable; adapts to the pipe diameter and carries a flaw-detection payload. Beijing First Prize, Youth Science &amp; Technology Innovation Competition.</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-wallclimb.mp4" poster="assets/bot-wallclimb.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 14</span><span><b>Wall-climbing robot.</b> <span class="d">Vacuum adhesion through a PTFE-sealed soft chamber on hand-cast silicone tires. Siemens Cup, Beijing First Prize — and 70+ units sold.</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-rm-scara.mp4" poster="assets/bot-rm-scara.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 15</span><span><b>RoboMaster Engineer.</b> <span class="d">7-DoF cylindrical SCARA arm on a suspended swerve chassis: crosses rough terrain and stows ore precisely. National First Prize.</span></span></figcaption></figure>
       <figure><div class="frame"><video src="assets/bot-rm-controller.mp4" poster="assets/bot-rm-controller.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
-        <figcaption><span class="fig">FIG. 17</span><span><b>First-person teleop controller.</b> <span class="d">A six-axis encoder rig and an isomorphic master–slave arm I built for RoboMaster — where my teleop work began.</span></span></figcaption></figure>
+        <figcaption><span class="fig">FIG. 16</span><span><b>First-person teleop controller.</b> <span class="d">A six-axis encoder rig and an isomorphic master–slave arm I built for RoboMaster — where my teleop work began.</span></span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -427,9 +435,9 @@
 
   // 01 · embodiment picker
   const bodyCaps = {
-    reflex: ['Reflex Robotics.', 'Same operator interface, same intuition — a different robot.'],
-    ultra: ['Ultra.', 'Driven through a whole-body controller; both hands work the bin together.'],
-    luna: ['Luna.', 'The operator turns their head; torso and base follow, then the arms reach.'],
+    reflex: ['Reflex Robotics.', 'A human teleop session recorded on Ultra, replayed on Reflex in simulation: base, lift, torso and both arms move together, then the whole robot turns ~100° to the bin.'],
+    ultra: ['Ultra.', 'Picks items off the conveyor, packs them into a carton, then stretches down the line for the next one.'],
+    luna: ['Luna.', 'Third-person view (left) and the robot’s own view (right): the base carries the body to the next table while the torso leans in and both arms grasp.'],
   };
   const bodyBtns = [...document.querySelectorAll('[data-body]')];
   bodyBtns.forEach(b => b.addEventListener('click', () => {
