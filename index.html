@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jorlin Yang</title>
+<meta name="description" content="Jorlin Yang — robotics founder. Building Faber, the human-in-the-loop layer for embodied AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea; --fg: #1b1a17; --muted: #6f6a60; --line: #d6d0c3; --soft: #ebe6db; --accent: #b4441f;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", -apple-system, "Helvetica Neue", "PingFang SC", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #151412; --fg: #ece7dc; --muted: #9a9385; --line: #34312b; --soft: #1e1c19; --accent: #e07a4f; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #151412; --fg: #ece7dc; --muted: #9a9385; --line: #34312b; --soft: #1e1c19; --accent: #e07a4f; color-scheme: dark }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--accent); }
+  img, video { display: block; max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+  /* nav */
+  nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 52px; gap: 16px; }
+  nav .mark { font-family: var(--serif); font-size: 22px; text-decoration: none; }
+  nav ul { display: flex; gap: clamp(12px, 2.4vw, 28px); list-style: none; margin: 0; padding: 0; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  nav ul a { text-decoration: none; color: var(--muted); }
+  nav ul a:hover { color: var(--fg); }
+  @media (max-width: 560px) { nav ul li.opt { display: none; } }
+
+  /* hero */
+  .hero { padding-block: clamp(56px, 11vw, 132px) clamp(40px, 7vw, 80px); border-bottom: 1px solid var(--line); }
+  .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font: 400 clamp(56px, 11vw, 148px)/.92 var(--serif); letter-spacing: -.02em; margin: 18px 0 0; }
+  h1 .cn { font-family: var(--sans); font-weight: 400; font-size: .2em; letter-spacing: .1em; color: var(--muted); vertical-align: .9em; margin-left: .3em; }
+  .lede { font: 400 clamp(22px, 2.8vw, 32px)/1.3 var(--serif); max-width: 22em; margin: 28px 0 0; }
+  .lede em { color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--fg); }
+  .stat { padding: 16px 16px 0 0; }
+  .stat + .stat { padding-left: 16px; border-left: 1px solid var(--line); }
+  .stat b { display: block; font: 400 clamp(36px, 5.4vw, 64px)/1 var(--serif); }
+  .stat span { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); max-width: 18em; }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } .stat + .stat { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; margin-top: 16px; } }
+
+  /* sections */
+  section.block { padding-block: clamp(56px, 8vw, 104px); border-bottom: 1px solid var(--line); }
+  .head { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; align-items: baseline; margin-bottom: clamp(28px, 4vw, 48px); }
+  .head .num { font: 500 12px/1 var(--mono); letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+  h2 { font: 400 clamp(36px, 5vw, 60px)/1 var(--serif); margin: 0; letter-spacing: -.01em; }
+  h2 small { display: block; margin-top: 12px; font: 400 16px/1.5 var(--sans); color: var(--muted); max-width: 40em; letter-spacing: 0; }
+  @media (max-width: 720px) { .head { grid-template-columns: 1fr; gap: 10px; } }
+
+  /* figures */
+  figure { margin: 0; min-width: 0; }
+  .frame { position: relative; background: var(--soft); border: 1px solid var(--line); overflow: hidden; }
+  .frame img, .frame video { width: 100%; height: 100%; object-fit: cover; }
+  figcaption { display: flex; gap: 10px; margin-top: 10px; font-size: 14px; line-height: 1.45; }
+  figcaption .fig { flex: none; font: 500 11px/1.9 var(--mono); color: var(--accent); letter-spacing: .04em; }
+  figcaption b { font-weight: 600; }
+  figcaption span.d { color: var(--muted); }
+
+  /* faber */
+  .faber-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
+  .faber-grid .a { grid-column: span 7; } .faber-grid .a .frame { aspect-ratio: 16/9; }
+  .faber-grid .b { grid-column: span 5; } .faber-grid .b .frame { aspect-ratio: 16/9; }
+  .faber-grid .c { grid-column: span 5; } .faber-grid .c .frame { aspect-ratio: 4/3; }
+  .faber-grid .d { grid-column: span 7; } .faber-grid .d .frame { aspect-ratio: 16/9; }
+  @media (max-width: 820px) { .faber-grid > * { grid-column: 1 / -1 !important; } }
+  .claims { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line); }
+  .claims div { padding: 18px 18px 0 0; min-width: 0; }
+  .claims div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+  .claims b { display: block; font: 400 30px/1.1 var(--serif); }
+  .claims p { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+  @media (max-width: 820px) { .claims { grid-template-columns: 1fr 1fr; } .claims div:nth-child(3) { border-left: 0; padding-left: 0; } .claims div:nth-child(n+3) { margin-top: 18px; } }
+  @media (max-width: 480px) { .claims { grid-template-columns: 1fr; } .claims div + div { border-left: 0; padding-left: 0; margin-top: 18px; } }
+
+  /* ventures */
+  .venture { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 56px); padding-block: 8px 40px; }
+  .venture + .venture { border-top: 1px solid var(--line); padding-top: 40px; }
+  .venture h3 { font: 400 32px/1.1 var(--serif); margin: 0; }
+  .venture .when { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin: 12px 0 18px; }
+  .venture ul { margin: 0; padding: 0; list-style: none; }
+  .venture li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .venture li b { font-weight: 600; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-self: start; }
+  .pair .frame { aspect-ratio: 4/5; }
+  @media (max-width: 820px) { .venture { grid-template-columns: 1fr; } }
+
+  /* robots */
+  .robots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+  .robots .frame { aspect-ratio: 4/5; }
+  .robots figure.wide { grid-column: span 2; } .robots figure.wide .frame { aspect-ratio: auto; height: calc(100% - 0px); }
+  @media (max-width: 900px) { .robots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .robots { grid-template-columns: 1fr; } .robots figure.wide { grid-column: auto; } }
+
+  /* timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 180px minmax(0, 1fr) auto; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  .timeline li:last-child { border-bottom: 1px solid var(--line); }
+  .timeline .t { font: 500 12px/1.6 var(--mono); color: var(--muted); letter-spacing: .04em; }
+  .timeline .w b { font: 400 22px/1.25 var(--serif); display: block; }
+  .timeline .w span { font-size: 14px; color: var(--muted); }
+  .timeline .tag { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
+  @media (max-width: 720px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* contact */
+  .contact { padding-block: clamp(64px, 10vw, 128px); }
+  .contact p.big { font: 400 clamp(32px, 5vw, 60px)/1.1 var(--serif); margin: 0; max-width: 16em; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 32px; font: 500 13px/1 var(--mono); letter-spacing: .04em; }
+  .links a, .links span { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .links a:hover { border-color: var(--accent); }
+  footer { border-top: 1px solid var(--line); padding-block: 20px calc(20px + env(safe-area-inset-bottom, 0px)); font: 400 12px/1 var(--mono); color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="mark" href="#top">Jorlin Yang</a>
+    <ul>
+      <li><a href="#faber">Faber</a></li>
+      <li class="opt"><a href="#before">Before</a></li>
+      <li><a href="#robots">Robots</a></li>
+      <li class="opt"><a href="#timeline">Timeline</a></li>
+      <li><a href="Jorlin_Yang_Resume.pdf">Résumé</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Robotics founder · Beijing · b. 2003</div>
+    <h1>Jorlin Yang<span class="cn">杨卓霖</span></h1>
+    <p class="lede">I build robots — and now, the way humans <em>teach</em> them. Founder of Faber, the human-in-the-loop layer for embodied AI.</p>
+    <div class="stats">
+      <div class="stat"><b>20+</b><span>robots built by hand as an undergrad — flying, rolling, climbing walls, playing badminton</span></div>
+      <div class="stat"><b>200 ms</b><span>remote force-feedback teleop that stays stable at Beijing-to-D.C. latency</span></div>
+      <div class="stat"><b>1:10 → 1:5</b><span>human-to-robot time ratio on parcel packing, halved with whole-body teleop</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="faber">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">01 — Now</div>
+      <h2>Faber <span style="color:var(--muted)">仓颉具身</span>
+        <small>A teleoperation cockpit: when a field robot gets stuck, a human takes over with force feedback, finishes the job, and the correction flows back into training. Founded April 2026.</small></h2>
+    </div>
+    <div class="faber-grid">
+      <figure class="a">
+        <div class="frame"><video src="assets/wbc.mp4" poster="assets/wbc.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 01</span><span><b>Whole-body intuitive teleop.</b> <span class="d">Waist, shoulders and base move as one — manipulate while driving. Ported Luna → Ultra → Reflex Robotics.</span></span></figcaption>
+      </figure>
+      <figure class="b">
+        <div class="frame"><video src="assets/force.mp4" poster="assets/force.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 02</span><span><b>Remote force feedback at 200 ms.</b> <span class="d">The remote arm tracks the force the operator applies, holding steady contact despite visible delay.</span></span></figcaption>
+      </figure>
+      <figure class="c">
+        <div class="frame"><img src="assets/tactile.jpg" alt="Fingertip tactile display prototype worn on an index finger" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 03</span><span><b>Fingertip tactile display.</b> <span class="d">Normal force, shear force and 50–300 Hz vibrotactile texture in one device — you feel the switch from hard to soft.</span></span></figcaption>
+      </figure>
+      <figure class="d">
+        <div class="frame"><video src="assets/dagger.mp4" poster="assets/dagger.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 04</span><span><b>Online correction during rollout.</b> <span class="d">A human takes over mid-task; the key contact events become post-training data for the policy.</span></span></figcaption>
+      </figure>
+    </div>
+    <div class="claims">
+      <div><b>3</b><p>robot platforms running the same teleop stack</p></div>
+      <div><b>200 ms</b><p>emulated latency with stable remote force control</p></div>
+      <div><b>50–300 Hz</b><p>contact textures rendered at the fingertip</p></div>
+      <div><b>Grocery Outlet</b><p>US grocery chain among our first pilot partners</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="before">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">02 — Before Faber</div>
+      <h2>Two businesses, both profitable
+        <small>I paid my way through college teaching kids to build robots — and learned to turn a one-off build into a product other people can run.</small></h2>
+    </div>
+
+    <div class="venture">
+      <div>
+        <h3>Robotics study-tour kit</h3>
+        <div class="when">Feb – Sep 2025 · Founder</div>
+        <ul>
+          <li>Kids build a working wall-climbing robot in <b>2 days</b>. I designed the curriculum and wrote the embedded software for every robot.</li>
+          <li>Ran the flagship class with a 14-person team at <b>~31% profit margin</b>.</li>
+          <li>Mass-produced the kit; institutions in <b>Beijing, Shanghai and Shenzhen</b> ran their own summer camps on our SOP.</li>
+        </ul>
+      </div>
+      <div class="pair">
+        <figure><div class="frame"><img src="assets/wallclimb.jpg" alt="Wall-climbing robot on a vertical wall" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 05</span><span>The wall-climbing robot kids finish in two days.</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/deskpet.jpg" alt="Desktop pet robot with a screen face" loading="lazy" style="object-fit:contain;background:#000"></div>
+          <figcaption><span class="fig">FIG. 06</span><span>Desktop AI pet robot, the next kit.</span></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="venture">
+      <div>
+        <h3>K-12 competition coaching</h3>
+        <div class="when">2023 – 2025 · Founder</div>
+        <ul>
+          <li>Licensed the program to <b>5 Beijing institutions</b>, generating <b>RMB 1M+</b> in revenue for partners.</li>
+          <li>Coached a student to <b>First Prize</b>, Beijing Youth Science &amp; Technology Competition (High School) — one of five city-wide.</li>
+          <li>Built every teaching robot from scratch: tracked tanks, lifting arms, custom chassis.</li>
+        </ul>
+      </div>
+      <div class="pair">
+        <figure><div class="frame"><img src="assets/tankkit.jpg" alt="Aluminium tracked tank kit" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 07</span><span>“Build a tank in five days” kit.</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/kitarm.jpg" alt="Yellow tracked robot with lifting arm built by students" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 08</span><span>Tracked lifting-arm robot, built by students.</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="robots">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">03 — Built</div>
+      <h2>Robots I've made
+        <small>A selection from 20+ undergraduate builds. RoboMaster University Technical Challenge, National First Prize (Top 8 of 400+ teams), as embedded &amp; controls lead.</small></h2>
+    </div>
+    <div class="robots">
+      <figure><div class="frame"><img src="assets/robomaster.jpg" alt="RoboMaster engineer robot" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 09</span><span><b>RoboMaster Engineer.</b> <span class="d">Ore-mining robot; I led its embedded controls.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/badminton.jpg" alt="Badminton robot on a green court" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 10</span><span><b>Badminton robot.</b> <span class="d">Picks up, stores and serves shuttlecocks.</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/wallclimb-clip.mp4" poster="assets/wallclimb-clip.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 11</span><span><b>Wall climber.</b> <span class="d">80 mm square, vacuum-turbine adhesion, carries a camera.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/wheelarm.jpg" alt="Mobile manipulator with a multi-joint arm" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 12</span><span><b>Mobile manipulator.</b> <span class="d">Wheeled base with a multi-joint arm.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/stairclimber.jpg" alt="Tracked stair-climbing robot with flippers" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 13</span><span><b>Stair climber.</b> <span class="d">Flipper tracks with automatic pitch compensation.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/pipe.jpg" alt="Ring-shaped pipe inspection robot" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 14</span><span><b>Pipe inspector.</b> <span class="d">Segmented, steerable, adjustable radius.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/lacquer.jpg" alt="Tracked robot with SCARA arm" loading="lazy"></div>
+        <figcaption><span class="fig">FIG. 15</span><span><b>Lacquer harvester.</b> <span class="d">Tracked base with a force-controlled SCARA arm.</span></span></figcaption></figure>
+      <figure><div class="frame"><img src="assets/drone.jpg" alt="Quadcopter drone" loading="lazy" style="object-position:center 60%"></div>
+        <figcaption><span class="fig">FIG. 16</span><span><b>Quadcopter.</b> <span class="d">Because one of them had to fly.</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="timeline">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">04 — Path</div>
+      <h2>Timeline</h2>
+    </div>
+    <ol class="timeline">
+      <li><span class="t">Apr 2026 — now</span><span class="w"><b>Founder &amp; CEO, Faber</b><span>Human-in-the-loop teleoperation for embodied AI.</span></span><span class="tag">Founder</span></li>
+      <li><span class="t">2025 — now</span><span class="w"><b>M.S., Beijing Institute of Technology</b><span>Key Laboratory of Biomimetic Robots and Systems.</span></span><span class="tag">School</span></li>
+      <li><span class="t">Feb — Sep 2025</span><span class="w"><b>Robotics study-tour kit</b><span>Two-day wall-climbing robot; licensed across three cities.</span></span><span class="tag">Founder</span></li>
+      <li><span class="t">Oct 2024</span><span class="w"><b>AIRS, CUHK-Shenzhen</b><span>Teleoperated a robot to wipe a whiteboard. It never got clean — that's where Faber started.</span></span><span class="tag">Intern</span></li>
+      <li><span class="t">Aug 2024</span><span class="w"><b>ForwardX Robotics</b><span>Product intern; tore down an EU-bound AMR into a full BOM.</span></span><span class="tag">Intern</span></li>
+      <li><span class="t">2024</span><span class="w"><b>RoboMaster — National First Prize</b><span>Top 8 of 400+ teams. Embedded &amp; controls lead.</span></span><span class="tag">Award</span></li>
+      <li><span class="t">2023 — 2024</span><span class="w"><b>Shenzhen X-Institute</b><span>Defined a knee hot/cold-compress rehab device.</span></span><span class="tag">Product</span></li>
+      <li><span class="t">2023 — 2025</span><span class="w"><b>K-12 competition coaching</b><span>Five Beijing institutions, RMB 1M+ partner revenue.</span></span><span class="tag">Founder</span></li>
+      <li><span class="t">2022 — 2023</span><span class="w"><b>Songshan Lake Robotics Institute</b><span>Painless breast pump; RMB 500K investment LOI.</span></span><span class="tag">Product</span></li>
+      <li><span class="t">2021 — 2025</span><span class="w"><b>B.Eng. Robotics, USTB</b><span>University of Science and Technology Beijing.</span></span><span class="tag">School</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 — Contact</div>
+    <p class="big" style="margin-top:18px">If you're building robots that need to work in the real world, let's talk.</p>
+    <div class="links">
+      <a href="https://github.com/thedaosheng" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="Jorlin_Yang_Resume.pdf">Résumé (PDF) ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 Jorlin Yang</span><span>Made by hand, like the robots.</span></div></footer>
+<script>
+  // Play clips only while on screen; fall back gracefully if autoplay is refused.
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) v.play().catch(() => {}); else v.pause();
+  }), { threshold: 0.25 });
+  document.querySelectorAll('video').forEach(v => io.observe(v));
+</script>
+</body>
+</html>
