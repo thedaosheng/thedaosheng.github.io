@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>杨卓霖 · Jorlin Yang</title>
+<meta name="description" content="杨卓霖，仓颉创新（C Robotics）创始人：做具身智能的人机回路。">
+<style>
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif-italic.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(assets/fonts/inter-var.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 500; font-display: swap; src: url(assets/fonts/jetbrains-mono-var.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  :root {
+    --bg: #f4f1ea; --fg: #1b1a17; --muted: #6f6a60; --line: #d6d0c3; --soft: #ebe6db; --accent: #b4441f;
+    --serif: "Instrument Serif", "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+    --sans: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #151412; --fg: #ece7dc; --muted: #9a9385; --line: #34312b; --soft: #1e1c19; --accent: #e07a4f; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #151412; --fg: #ece7dc; --muted: #9a9385; --line: #34312b; --soft: #1e1c19; --accent: #e07a4f; color-scheme: dark }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--accent); }
+  img, video { display: block; max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+  /* nav */
+  nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 52px; gap: 16px; }
+  nav .mark { font-family: var(--serif); font-size: 22px; text-decoration: none; }
+  nav ul { display: flex; gap: clamp(12px, 2.4vw, 28px); list-style: none; margin: 0; padding: 0; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  nav ul a { text-decoration: none; color: var(--muted); }
+  nav ul a:hover { color: var(--fg); }
+  @media (max-width: 560px) { nav ul li.opt { display: none; } }
+
+  /* hero */
+  .hero { padding-block: clamp(56px, 11vw, 132px) clamp(40px, 7vw, 80px); border-bottom: 1px solid var(--line); }
+  .hero-top { display: grid; grid-template-columns: minmax(0, 1fr) clamp(180px, 22vw, 280px); gap: clamp(24px, 5vw, 64px); align-items: end; }
+  .portrait { margin: 0; aspect-ratio: 4/5; border: 1px solid var(--line); overflow: hidden; background: var(--soft); }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .hero-top { grid-template-columns: 1fr; } .portrait { width: 56%; max-width: 240px; order: -1; } }
+  .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font: 400 clamp(56px, 11vw, 148px)/.92 var(--serif); letter-spacing: -.02em; margin: 18px 0 0; }
+  h1 .cn { font-family: var(--sans); font-weight: 400; font-size: .2em; letter-spacing: .1em; color: var(--muted); vertical-align: .9em; margin-left: .3em; }
+  .lede { font: 400 clamp(22px, 2.8vw, 32px)/1.3 var(--serif); max-width: 22em; margin: 28px 0 0; }
+  .lede em { color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--fg); }
+  .stat { padding: 16px 16px 0 0; }
+  .stat + .stat { padding-left: 16px; border-left: 1px solid var(--line); }
+  .stat b { display: block; font: 400 clamp(36px, 5.4vw, 64px)/1 var(--serif); }
+  .stat span { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); max-width: 18em; }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } .stat + .stat { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; margin-top: 16px; } }
+
+  /* sections */
+  section.block { padding-block: clamp(56px, 8vw, 104px); border-bottom: 1px solid var(--line); }
+  .head { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; align-items: baseline; margin-bottom: clamp(28px, 4vw, 48px); }
+  .head .num { font: 500 12px/1 var(--mono); letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+  h2 { font: 400 clamp(36px, 5vw, 60px)/1 var(--serif); margin: 0; letter-spacing: -.01em; }
+  h2 small { display: block; margin-top: 12px; font: 400 16px/1.5 var(--sans); color: var(--muted); max-width: 40em; letter-spacing: 0; }
+  @media (max-width: 720px) { .head { grid-template-columns: 1fr; gap: 10px; } }
+
+  /* figures */
+  figure { margin: 0; min-width: 0; }
+  .frame { position: relative; background: var(--soft); border: 1px solid var(--line); overflow: hidden; }
+  .frame img, .frame video { width: 100%; height: 100%; object-fit: cover; }
+  figcaption { display: flex; gap: 10px; margin-top: 10px; font-size: 14px; line-height: 1.45; }
+  figcaption .fig { flex: none; font: 500 11px/1.9 var(--mono); color: var(--accent); letter-spacing: .04em; }
+  figcaption b { font-weight: 600; }
+  figcaption span.d { color: var(--muted); }
+
+  /* c robotics */
+  .thesis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--fg); margin-bottom: clamp(48px, 7vw, 88px); }
+  .thesis div { padding: 18px 20px 0 0; min-width: 0; }
+  .thesis div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+  .thesis .k { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .thesis p { margin: 10px 0 0; font-size: 15px; }
+  @media (max-width: 760px) { .thesis { grid-template-columns: 1fr; } .thesis div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); margin-top: 18px; } }
+
+  .cap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 56px); padding-block: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
+  .cap:first-of-type { border-top: 0; padding-top: 0; }
+  .cap .tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .cap h3 { font: 400 clamp(28px, 3.4vw, 40px)/1.08 var(--serif); margin: 12px 0 14px; }
+  .cap p { margin: 0 0 12px; font-size: 15px; }
+  .cap p.d { color: var(--muted); }
+  .spec { list-style: none; margin: 16px 0 0; padding: 0; font-size: 14px; }
+  .spec li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .spec li span { font: 500 11px/1.9 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 860px) { .cap { grid-template-columns: 1fr; } }
+
+  .frame.wide { aspect-ratio: 16/9; }
+  .frame .ov { position: absolute; display: flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 0 .6em; background: #151a12; color: #f0d98a; border: 1px solid #c9a75a; border-radius: 6px; font: 500 2.1cqw/1.1 var(--sans); white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }
+  .frame .ov.on { opacity: 1; }
+
+  .bodies { list-style: none; margin: 18px 0 0; padding: 0; }
+  .bodies button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; width: 100%; padding: 12px 0; border-top: 1px solid var(--line); }
+  .bodies li:last-child button { border-bottom: 1px solid var(--line); }
+  .bodies button i { font: 500 11px/1.9 var(--mono); font-style: normal; color: var(--muted); }
+  .bodies button b { display: block; font: 400 22px/1.2 var(--serif); }
+  .bodies button small { display: block; font-size: 13px; color: var(--muted); }
+  .bodies button[aria-selected="true"] i, .bodies button[aria-selected="true"] b { color: var(--accent); }
+  .bodies button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tabs button { all: unset; cursor: pointer; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 8px 10px; border: 1px solid var(--line); color: var(--muted); }
+  .tabs button[aria-selected="true"] { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+  .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .duo { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; }
+  .duo .frame.tall { aspect-ratio: 4/5; }
+  .duo .frame.mid { aspect-ratio: 4/5; }
+  @media (max-width: 520px) { .duo { grid-template-columns: 1fr; } }
+
+  .steps { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 56px); margin-top: clamp(20px, 3vw, 32px); align-items: start; }
+  .steps .frame { aspect-ratio: 1280/512; container-type: inline-size; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .claims { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line); }
+  .claims div { padding: 18px 18px 0 0; min-width: 0; }
+  .claims div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+  .claims b { display: block; font: 400 30px/1.1 var(--serif); }
+  .claims p { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+  @media (max-width: 820px) { .claims { grid-template-columns: 1fr 1fr; } .claims div:nth-child(3) { border-left: 0; padding-left: 0; } .claims div:nth-child(n+3) { margin-top: 18px; } }
+  @media (max-width: 480px) { .claims { grid-template-columns: 1fr; } .claims div + div { border-left: 0; padding-left: 0; margin-top: 18px; } }
+
+  /* ventures */
+  .venture { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 56px); padding-block: 8px 40px; }
+  .venture + .venture { border-top: 1px solid var(--line); padding-top: 40px; }
+  .venture h3 { font: 400 32px/1.1 var(--serif); margin: 0; }
+  .venture .when { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin: 12px 0 18px; }
+  .venture ul { margin: 0; padding: 0; list-style: none; }
+  .venture li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .venture li b { font-weight: 600; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-self: start; }
+  .pair .frame { aspect-ratio: 4/3; }
+  .pair figure.lead { grid-column: 1 / -1; } .pair figure.lead .frame { aspect-ratio: 16/9; }
+  @media (max-width: 820px) { .venture { grid-template-columns: 1fr; } }
+
+  /* robots */
+  .robots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+  .robots .frame { aspect-ratio: 4/5; }
+  .robots figure.wide { grid-column: span 2; } .robots figure.wide .frame { aspect-ratio: auto; height: calc(100% - 0px); }
+  @media (max-width: 900px) { .robots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .robots { grid-template-columns: 1fr; } .robots figure.wide { grid-column: auto; } }
+
+  /* timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 180px minmax(0, 1fr) auto; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  .timeline li:last-child { border-bottom: 1px solid var(--line); }
+  .timeline .t { font: 500 12px/1.6 var(--mono); color: var(--muted); letter-spacing: .04em; }
+  .timeline .w b { font: 400 22px/1.25 var(--serif); display: block; }
+  .timeline .w span { font-size: 14px; color: var(--muted); }
+  .timeline .tag { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
+  @media (max-width: 720px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* contact */
+  .contact { padding-block: clamp(64px, 10vw, 128px); }
+  .contact p.big { font: 400 clamp(32px, 5vw, 60px)/1.1 var(--serif); margin: 0; max-width: 16em; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 32px; font: 500 13px/1 var(--mono); letter-spacing: .04em; }
+  .links a, .links span { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .links a:hover { border-color: var(--accent); }
+  footer { border-top: 1px solid var(--line); padding-block: 20px calc(20px + env(safe-area-inset-bottom, 0px)); font: 400 12px/1 var(--mono); color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="mark" href="#top">杨卓霖</a>
+    <ul>
+      <li><a href="#c-robotics">仓颉创新</a></li>
+      <li class="opt"><a href="#before">创业前</a></li>
+      <li><a href="#robots">作品</a></li>
+      <li class="opt"><a href="#timeline">经历</a></li>
+      <li><a href="Jorlin_Yang_Resume.pdf">简历</a></li>
+      <li><a href="https://thedaosheng.github.io/" lang="en">EN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">机器人创业者 · 北京 · 2003 年生</div>
+        <h1>杨卓霖<span class="cn">Jorlin Yang</span></h1>
+        <p class="lede">我造机器人，现在也造人<em>教</em>机器人的方式。仓颉创新创始人，做具身智能的人机回路。</p>
+      </div>
+      <figure class="portrait"><img src="assets/portrait.jpg" alt="杨卓霖证件照"></figure>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>20+</b><span>本科亲手造的机器人：天上飞的、地上跑的、墙上爬的、打羽毛球的</span></div>
+      <div class="stat"><b>200 ms</b><span>远程力反馈遥操，在北京到华盛顿量级的延迟下依然稳定</span></div>
+      <div class="stat"><b>1:10 → 1:5</b><span>快递打包任务的人机耗时比，全身遥操把它缩短了一半</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="c-robotics">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">01 — 现在</div>
+      <h2>仓颉创新 <span style="color:var(--muted)">C Robotics</span>
+        <small>现场的机器人卡住时，驾驶舱里的操作员接管它：看得清、动得顺、摸得到，像亲临现场一样把活干完；这次纠正随即变成训练数据。2026 年 4 月创立。</small></h2>
+    </div>
+
+    <div class="thesis">
+      <div><span class="k">问题</span><p>今天教机器人的人，感受不到机器人摸到了什么。我看过一台机器人擦了一小时黑板，始终没擦干净。老师操作不好，教不出好学生。</p></div>
+      <div><span class="k">判断</span><p>基础模型对世界的先验已经足够强，缺的是干中学：一个真正"在"机器人身体里的人，在它犯错的那一刻把它纠正过来。</p></div>
+      <div><span class="k">产品</span><p>一个能接入任意"双臂 + 躯干 + 底盘"机器人的驾驶舱：全身控制、远程力反馈、指尖触觉，以及把每一次接管变成后训练数据的管线。</p></div>
+    </div>
+
+    <!-- 01 embodiments -->
+    <div class="cap">
+      <div>
+        <span class="tag">01 · 跨本体</span>
+        <h3>以操作员直觉为优化目标的控制</h3>
+        <p>行业把遥操当成控制问题：让机器人跟住人的手。我们认为瓶颈在人：画面跟不上头，或者身体的动作出乎操作员意料，人就会晕、会慢。所以我们的全身控制器，优化的是操作员期待看到和感受到的东西：</p>
+        <ul class="spec" style="margin-bottom:14px">
+          <li><span>画面</span><div>预测头动、提前渲染，画面跟得上头，不晕。</div></li>
+          <li><span>身体</span><div>像人一样分配动作：先伸手、再伸腰、再送肩、最后动底盘，统一求解，转身和够取一气呵成。</div></li>
+          <li><span>注视</span><div>绕着操作员注视的点移动，边走边干活，像 CS 里的"移动中瞄准"。</div></li>
+          <li><span>迁移</span><div>同拓扑适配器：换机器人，不换驾驶舱。</div></li>
+        </ul>
+        <p class="d">同一套控制器，三台机器人。选一个本体看看：</p>
+        <ul class="bodies" role="tablist" aria-label="Robot platform">
+          <li><button role="tab" aria-selected="true" data-body="reflex"><i>01</i><span><b>Reflex Robotics</b><small>轮式人形 · 由 Ultra 上的录制驱动</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-body="ultra"><i>02</i><span><b>Ultra</b><small>从传送带抓取，装进纸箱</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-body="luna"><i>03</i><span><b>Luna</b><small>底盘、躯干、双臂一起动</small></span></button></li>
+        </ul>
+        <ul class="spec">
+          <li><span>结果</span><div>快递打包任务的人机耗时比：<b>1:10 → 1:5</b></div></li>
+          <li><span>素材</span>由真人遥操录制数据驱动的仿真回放</li>
+        </ul>
+      </div>
+      <figure>
+        <div class="frame wide" style="background:#2b2d30"><video id="bodyVideo" style="object-fit:contain" src="assets/body-reflex.mp4" poster="assets/body-reflex.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 01</span><span id="bodyCap"><b>Reflex Robotics。</b> <span class="d">在 Ultra 上录制的一段真人遥操，在仿真里驱动 Reflex：底盘、升降、躯干、双臂一起动，随后整机原地转约 100° 去料箱。</span></span></figcaption>
+      </figure>
+    </div>
+
+    <!-- 02 force -->
+    <div class="cap">
+      <div>
+        <span class="tag">02 · 力</span>
+        <h3>200 毫秒延迟下的远程力反馈</h3>
+        <p>纯位置遥操，要么把东西夹扁，要么压不到位。本地力反馈手感好，但离不开实验室。我们把力的闭环跨网络打通。</p>
+        <p class="d">在 200 毫秒延迟下（约等于北京到华盛顿），远端机械臂仍能跟随操作员的手稳定地调整接触力，人在任何地方都能在策略执行中途把它纠正过来。</p>
+        <ul class="spec">
+          <li><span>延迟</span>200 毫秒，实验室模拟</li>
+          <li><span>闭环</span>操作员的力 → 机器人的接触力，连续跟随</li>
+          <li><span>解锁</span>擦、刮、插、拧，这些需要手感的活</li>
+        </ul>
+      </div>
+      <figure>
+        <div class="tabs" role="tablist" aria-label="Force clips">
+          <button role="tab" aria-selected="true" data-clip="force-delay">200 毫秒延迟下</button>
+          <button role="tab" aria-selected="false" data-clip="force-follow">力跟着手走</button>
+        </div>
+        <div class="frame wide"><video id="forceVideo" src="assets/force-delay.mp4" poster="assets/force-delay.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 02</span><span><b>力反馈主手，远端机械臂。</b> <span class="d">操作员通过力反馈主手操作；延迟肉眼可见，机器人依然稳稳贴住接触面。</span></span></figcaption>
+      </figure>
+    </div>
+
+    <!-- 03 touch -->
+    <div class="cap">
+      <div>
+        <span class="tag">03 · 触觉</span>
+        <h3>给指尖的显示屏</h3>
+        <p>力告诉你多用力，触觉告诉你碰到的<em>是什么</em>。我们的触觉显示屏戴在指尖，一个装置同时输出三路信号：</p>
+        <ul class="spec">
+          <li><span>法向力</span>压向表面的力</li>
+          <li><span>切向力</span>沿表面滑动的力</li>
+          <li><span>纹理</span>50、100、300 Hz 振动，对应皮肤快适应感受器的响应频段</li>
+        </ul>
+        <p class="d" style="margin-top:14px">操作员能分辨不同材质，感受到接触由硬变软的那一瞬间，这正是机器人需要学会的反射。</p>
+      </div>
+      <div class="duo">
+        <figure><div class="frame tall"><img src="assets/tactile.jpg" alt="戴在食指上的指尖触觉显示屏样机" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 03</span><span>样机，戴在食指上。</span></figcaption></figure>
+        <figure><div class="frame mid"><video src="assets/texture.mp4" poster="assets/texture.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+          <figcaption><span class="fig">FIG. 04</span><span>台架测试：探针把表面纹理读成振动信号。</span></figcaption></figure>
+      </div>
+    </div>
+
+    <!-- 04 correction -->
+    <div class="cap" style="grid-template-columns:1fr">
+      <div style="max-width:46em">
+        <span class="tag">04 · 学会</span>
+        <h3>纠正一次，机器人就学会</h3>
+        <p>任务：刮玻璃。基础策略只会复现轨迹，刮刀从玻璃上空划过。操作员接管，做了策略从没学过的事：先顶到上边界，压住，一路贴着刮到底。模型学到这个关键接触事件，之后自己就会做了。</p>
+      </div>
+      <div class="steps">
+        <ul class="bodies" role="tablist" aria-label="Correction steps" style="margin:0">
+          <li><button role="tab" aria-selected="true" data-step="0"><i>01</i><span><b>基础策略</b><small>只复现动作，没有真正接触</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-step="1"><i>02</i><span><b>人工纠正</b><small>操作员接管：向上顶，摸到边，压住</small></span></button></li>
+          <li><button role="tab" aria-selected="false" data-step="2"><i>03</i><span><b>学会</b><small>策略自己先往上顶</small></span></button></li>
+        </ul>
+        <figure>
+          <div class="frame"><video id="stepVideo" src="assets/fix-base.mp4" poster="assets/fix-base.jpg" autoplay muted playsinline preload="metadata"></video></div>
+          <figcaption><span class="fig">FIG. 05</span><span id="stepCap"><b>第 1 步 · 基础策略。</b> <span class="d">真机实拍，放慢到约 0.5 倍以便看清接触，三步自动连播。</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="claims">
+      <div><b>3</b><p>台机器人跑同一套遥操系统</p></div>
+      <div><b>200 ms</b><p>模拟延迟下远程力控依然稳定</p></div>
+      <div><b>50–300 Hz</b><p>在指尖还原的接触纹理</p></div>
+      <div><b>Grocery Outlet</b><p>美国连锁超市，首批合作意向方之一</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="before">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">02 — 创业之前</div>
+      <h2>两段创业，都赚了钱
+        <small>大学期间我靠教孩子造机器人养活自己，也学会了把一次性的作品做成别人能复制运营的产品。</small></h2>
+    </div>
+
+    <div class="venture">
+      <div>
+        <h3>机器人研学课程包</h3>
+        <div class="when">2025.02 – 2025.09 · 创始人</div>
+        <ul>
+          <li>孩子们 <b>2 天</b>做出一台能爬墙的机器人。课程由我设计，每台机器人的嵌入式软件都由我来写和调。</li>
+          <li>14 人团队运营样板班，利润率约 <b>31%</b>。</li>
+          <li>套件量产发货，<b>北京、上海、深圳</b>的机构用我们的 SOP 自己开夏令营。</li>
+        </ul>
+      </div>
+      <div class="pair">
+        <figure class="lead"><div class="frame"><img src="assets/kits-shipping.jpg" alt="会议桌上摆满正在打包发货的机器人套件" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 06</span><span>给合作机构打包发货。</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/camp-kits.jpg" alt="教室里孩子们举起机器人素材包" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 07</span><span>第一天：每个孩子领到一套素材包。</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/camp-group.jpg" alt="北京科技大学校园里的夏令营合影" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 08</span><span>北京科技大学校园里的夏令营。</span></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="venture">
+      <div>
+        <h3>中小学机器人竞赛辅导</h3>
+        <div class="when">2023 – 2025 · 创始人</div>
+        <ul>
+          <li>方案授权给北京 <b>5 家机构</b>，为机构带来<b>上百万元</b>营收。</li>
+          <li>辅导学生获得北京青少年科技竞赛高中组<b>一等奖</b>（全北京仅 5 人）。</li>
+          <li>每台教学机器人都从零设计：履带坦克、举升臂、定制底盘。</li>
+        </ul>
+      </div>
+      <div class="pair">
+        <figure><div class="frame"><img src="assets/k12-classroom.jpg" alt="教室课桌上摆满学生做的机器人和手柄" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 09</span><span>一个班的机器人，全部由学生亲手搭建。</span></figcaption></figure>
+        <figure><div class="frame"><img src="assets/tankkit.jpg" alt="铝型材履带坦克套件" loading="lazy"></div>
+          <figcaption><span class="fig">FIG. 10</span><span>"五天造一台坦克"套件。</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="robots">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">03 — 作品</div>
+      <h2>我造过的机器人
+        <small>20 多台亲手设计、搭建的机器人中的 6 台：从获奖作品，到我开始做遥操的 RoboMaster 装备。RoboMaster 机甲大师高校单项赛全国一等奖（400 多支队伍中前 8），担任电控组组长。</small></h2>
+    </div>
+    <div class="robots">
+      <figure><div class="frame"><video src="assets/bot-anti-fall-bed.mp4" poster="assets/bot-anti-fall-bed.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 11</span><span><b>助老防坠床。</b> <span class="d">监测睡姿，人靠近床沿时及时触发防护。北京市一等奖。</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-badminton.mp4" poster="assets/bot-badminton.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 12</span><span><b>羽毛球收·存·发一体机器人。</b> <span class="d">地面捡球，立式储球筒排序，摩擦轮定点发球。</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-pipe.mp4" poster="assets/bot-pipe.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 13</span><span><b>分体可转向管道探测机器人。</b> <span class="d">管径自适应、分体主动转向，可搭载探伤装置。青创赛北京市一等奖。</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-wallclimb.mp4" poster="assets/bot-wallclimb.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 14</span><span><b>负压吸附爬壁机器人。</b> <span class="d">四氟乙烯密封软质气室 + 自制硅胶软胎。西门子杯北京市一等奖，累计售出 70 余套。</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-rm-scara.mp4" poster="assets/bot-rm-scara.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 15</span><span><b>RoboMaster 工程机器人。</b> <span class="d">7 自由度柱面 SCARA 机械臂 + 悬挂舵轮底盘，越过崎岖地形，精准对位存放矿石。全国一等奖。</span></span></figcaption></figure>
+      <figure><div class="frame"><video src="assets/bot-rm-controller.mp4" poster="assets/bot-rm-controller.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        <figcaption><span class="fig">FIG. 16</span><span><b>第一视角遥操控制器。</b> <span class="d">为 RoboMaster 自研的六轴编码器方案和主从同构臂，我做遥操就是从这里开始的。</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="timeline">
+  <div class="wrap">
+    <div class="head">
+      <div class="num">04 — 经历</div>
+      <h2>时间线</h2>
+    </div>
+    <ol class="timeline">
+      <li><span class="t">2026.04 — 至今</span><span class="w"><b>仓颉创新 · 创始人 &amp; CEO</b><span>具身智能的人机回路遥操作。</span></span><span class="tag">创业</span></li>
+      <li><span class="t">2025 — 至今</span><span class="w"><b>北京理工大学 · 硕士</b><span>仿生机器人与系统教育部重点实验室。</span></span><span class="tag">教育</span></li>
+      <li><span class="t">2025.02 — 2025.09</span><span class="w"><b>机器人研学课程包</b><span>两天造一台爬壁机器人，授权到三座城市。</span></span><span class="tag">创业</span></li>
+      <li><span class="t">2024.10</span><span class="w"><b>深圳市人工智能与机器人研究院（港中文深圳）</b><span>遥操机器人擦黑板，怎么也擦不干净，仓颉创新由此开始。</span></span><span class="tag">实习</span></li>
+      <li><span class="t">2024.08</span><span class="w"><b>灵动科技</b><span>产品经理实习，把发往欧洲的 AMR 拆解成完整 BOM。</span></span><span class="tag">实习</span></li>
+      <li><span class="t">2024</span><span class="w"><b>RoboMaster 全国一等奖</b><span>400 多支队伍中前 8，电控组组长。</span></span><span class="tag">奖项</span></li>
+      <li><span class="t">2023 — 2024</span><span class="w"><b>深圳科创学院</b><span>完成膝关节冷热敷康复设备的产品定义。</span></span><span class="tag">产品</span></li>
+      <li><span class="t">2023 — 2025</span><span class="w"><b>中小学机器人竞赛辅导</b><span>北京 5 家机构，为机构带来上百万元营收。</span></span><span class="tag">创业</span></li>
+      <li><span class="t">2022 — 2023</span><span class="w"><b>东莞松山湖机器人研究院</b><span>无痛吸奶器，获 50 万元投资意向。</span></span><span class="tag">产品</span></li>
+      <li><span class="t">2021 — 2025</span><span class="w"><b>北京科技大学 · 机器人工程本科</b><span>本科期间做了 20 多台机器人。</span></span><span class="tag">教育</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 — 联系</div>
+    <p class="big" style="margin-top:18px">如果你也在做要去真实世界干活的机器人，聊聊。</p>
+    <div class="links">
+      <a href="https://github.com/thedaosheng" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="Jorlin_Yang_Resume.pdf">简历（英文 PDF）↗</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 杨卓霖</span><span>和机器人一样，亲手做的。</span></div></footer>
+<script>
+  // Play clips only while on screen; fall back gracefully if autoplay is refused.
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) v.play().catch(() => {}); else v.pause();
+  }), { threshold: 0.25 });
+  document.querySelectorAll('video').forEach(v => io.observe(v));
+
+  // Swap a video's source and keep it playing.
+  const swap = (v, name) => {
+    v.src = `assets/${name}.mp4`; v.poster = `assets/${name}.jpg`;
+    v.play().catch(() => {});
+  };
+  const select = (btns, b) => btns.forEach(x => x.setAttribute('aria-selected', x === b));
+
+  // 01 · embodiment picker
+  const bodyCaps = {
+    reflex: ['Reflex Robotics。', '在 Ultra 上录制的一段真人遥操，在仿真里驱动 Reflex：底盘、升降、躯干、双臂一起动，随后整机原地转约 100° 去料箱。'],
+    ultra: ['Ultra。', '从传送带上抓取物品装进纸箱，再伸长手臂去取下一件。'],
+    luna: ['Luna。', '左边第三人称、右边机器人视角：底盘带着整机转到另一张桌子，同时躯干前倾、双臂抓取。'],
+  };
+  const bodyBtns = [...document.querySelectorAll('[data-body]')];
+  bodyBtns.forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.body;
+    select(bodyBtns, b);
+    swap(document.getElementById('bodyVideo'), `body-${k}`);
+    document.getElementById('bodyCap').innerHTML = `<b>${bodyCaps[k][0]}</b> <span class="d">${bodyCaps[k][1]}</span>`;
+  }));
+
+  // 02 · force clips
+  const clipBtns = [...document.querySelectorAll('[data-clip]')];
+  clipBtns.forEach(b => b.addEventListener('click', () => {
+    select(clipBtns, b);
+    swap(document.getElementById('forceVideo'), b.dataset.clip);
+  }));
+
+  // 04 · step player with English labels timed to the footage: [start, end, left%, top%, minWidth%, height%, text]
+  const steps = [
+    { name: 'fix-base', cap: '第 1 步 · 基础策略。', ov: null },
+    { name: 'fix-correct', cap: '第 2 步 · 人工纠正。', ov: [3.7, 6.95, 60.6, 10.5, 14.6, 16.1, '接触反馈'] },
+    { name: 'fix-learned', cap: '第 3 步 · 学会。', ov: [4.7, 7.5, 51.8, 16.0, 14.8, 16.1, '顿悟'] },
+  ];
+  const sv = document.getElementById('stepVideo');
+  const stepBtns = [...document.querySelectorAll('[data-step]')];
+  const ov = Object.assign(document.createElement('span'), { className: 'ov' });
+  sv.parentElement.appendChild(ov);
+  let cur = 0;
+  const show = i => {
+    cur = i; const st = steps[i];
+    select(stepBtns, stepBtns[i]);
+    swap(sv, st.name);
+    document.getElementById('stepCap').innerHTML = `<b>${st.cap}</b> <span class="d">真机实拍，放慢到约 0.5 倍以便看清接触，三步自动连播。</span>`;
+    if (st.ov) {
+      const [, , l, t, w, h, text] = st.ov;
+      ov.textContent = text;
+      Object.assign(ov.style, { left: l + '%', top: t + '%', minWidth: w + '%', height: h + '%' });
+    }
+  };
+  stepBtns.forEach((b, i) => b.addEventListener('click', () => show(i)));
+  sv.addEventListener('ended', () => show((cur + 1) % steps.length));
+  const tick = () => {
+    const o = steps[cur].ov;
+    ov.classList.toggle('on', !!o && sv.currentTime >= o[0] && sv.currentTime <= o[1]);
+    requestAnimationFrame(tick);
+  };
+  tick();
+</script>
+</body>
+</html>
